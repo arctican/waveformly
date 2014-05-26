@@ -30,9 +30,6 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 	Image myImage (Image::RGB, width, height, true);
 	Graphics g (myImage);
 	g.setColour (Colours::red);
-//	g.fillEllipse (20, 20, 300, 200);  // draws a red ellipse in our image.
-//	g.drawText(String(buffer.getNumSamples()), 0,0,100,100,Justification::left,true);
-	
 	
 	// Get samples as floats
 	float* samples = buffer.getSampleData(0);
@@ -83,18 +80,12 @@ void WaveformDrawer::setSoundFile(String soundFile)
 	AudioSampleBuffer readBuffer(reader->numChannels, reader->lengthInSamples);
 	reader->read(&readBuffer, 0, reader->lengthInSamples, 0, true, true);
 	buffer = readBuffer;
-	delete reader;
-	
-	
-	
-	
+	delete reader;	
 }
 
 
 void WaveformDrawer::normaliseAndAbsolute()
 {
-
-
 	// Normalise the buffer
 	float maximumLevel = buffer.getMagnitude ( 0, 0, buffer.getNumSamples());
 	float gainFactor = 1 / maximumLevel;

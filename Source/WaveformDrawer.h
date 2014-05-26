@@ -22,8 +22,23 @@ public:
     WaveformDrawer();
     ~WaveformDrawer();
     
+    /**
+     * Renders the waveform
+     * 
+     * @ return 	The waveform as a JUCE::Image
+     */
     Image renderWaveform(int width, int height);
+    
+    /**
+     * Set the source file of the sound to draw.
+     * 
+     * @ param 	soundFile	A string of the path if the file
+     */    
     void setSoundFile(String soundFile);
+    
+     /**
+     * Normalises and absolutes the values to make sure values are between 0-1
+     */
     void normaliseAndAbsolute();
 
 private:
