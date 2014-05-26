@@ -16,17 +16,20 @@
 //==============================================================================
 /*
 */
-class WaveformDrawer    : public Component
+class WaveformDrawer
 {
 public:
     WaveformDrawer();
     ~WaveformDrawer();
-
-    void paint (Graphics&);
-    void resized();
+    
+    Image renderWaveform(int width, int height);
+    void setSoundFile(String soundFile);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
+    
+	AudioSampleBuffer buffer;
+  
 };
 
 

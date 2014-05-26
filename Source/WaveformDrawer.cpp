@@ -14,38 +14,51 @@
 //==============================================================================
 WaveformDrawer::WaveformDrawer()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
 }
 
 WaveformDrawer::~WaveformDrawer()
 {
 }
 
-void WaveformDrawer::paint (Graphics& g)
+
+
+
+Image WaveformDrawer::renderWaveform(int width, int height)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
+	
+	// Create a blank Image
+	Image myImage (Image::RGB, 500, 500, true);
+	Graphics g (myImage);
+	g.setColour (Colours::red);
+	g.fillEllipse (20, 20, 300, 200);  // draws a red ellipse in our image.
+	g.drawText(String(buffer.getNumSamples()), 0,0,100,100,Justification::left,true);
+	
 
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (Colours::white);   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::lightblue);
-    g.setFont (14.0f);
-    g.drawText ("WaveformDrawer", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+	
+	return myImage;
+	
 }
 
-void WaveformDrawer::resized()
-{
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
 
+void WaveformDrawer::setSoundFile(String soundFile)
+{
+	// Audio File
+    File audioFile(soundFile); 
+    
+    // Get a format manager and set it up with the basic types (wav and aiff).
+	AudioFormatManager formatManager;
+	formatManager.registerBasicFormats();
+	 
+	// Create reader for file
+    AudioFormatReader* reader = formatManager.createReaderFor (audioFile);
+		
+	// Load data to AudioBuffer
+	AudioSampleBuffer readBuffer(reader->numChannels, reader->lengthInSamples);
+	reader->read(&readBuffer, 0, reader->lengthInSamples, 0, true, true);
+	buffer = readBuffer;
+	delete reader;
+	
+	
+	
+	
 }
