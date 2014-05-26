@@ -27,13 +27,40 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 {
 	
 	// Create a blank Image
-	Image myImage (Image::RGB, 500, 500, true);
+	Image myImage (Image::RGB, width, height, true);
 	Graphics g (myImage);
 	g.setColour (Colours::red);
-	g.fillEllipse (20, 20, 300, 200);  // draws a red ellipse in our image.
-	g.drawText(String(buffer.getNumSamples()), 0,0,100,100,Justification::left,true);
+//	g.fillEllipse (20, 20, 300, 200);  // draws a red ellipse in our image.
+//	g.drawText(String(buffer.getNumSamples()), 0,0,100,100,Justification::left,true);
 	
+	
+	// Get samples as floats
+	float* samples = buffer.getSampleData(0);
+	
+    // Create path to show waveform
+    Path waveformPath;
+	waveformPath.startNewSubPath (0.0f, height);
+    
+    // Find sample incrementer
+    float inc = buffer.getNumSamples()/width;
+    
+    // Loop through all pixels of width
+    for (int i=0; i<width; i++)
+    {
+		// Find sample to select 
+		int sample = (int) i*inc;
+		float value = 0.0;
+		
+		// Find peak of block for this pixel
+		for (int x=0; x<inc; x++)
+			if ( fabs(samples[x+sample]) > value)	value = fabs(samples[x+sample]);
 
+		// Draw point on Y axis for peak of block
+		float y = (value*-height) + height;
+		waveformPath.lineTo (i, y); 
+	}
+	
+	g.strokePath (waveformPath, PathStrokeType (1.0f));   
 	
 	return myImage;
 	
@@ -60,5 +87,25 @@ void WaveformDrawer::setSoundFile(String soundFile)
 	
 	
 	
+	
+}
+
+
+void WaveformDrawer::normaliseAndAbsolute()
+{
+
+
+	// Normalise the buffer
+	float maximumLevel = buffer.getMagnitude ( 0, 0, buffer.getNumSamples());
+	float gainFactor = 1 / maximumLevel;
+	buffer.applyGain	(0, 0, buffer.getNumSamples(), gainFactor); 
+	
+	// Get samples as floats
+	float* samples = buffer.getSampleData(0);
+	
+	// Absolute entire buffer
+	for (int i=0; i<buffer.getNumSamples(); i++)
+		samples[i] = fabs(samples[i]);
+
 	
 }

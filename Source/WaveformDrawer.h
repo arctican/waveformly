@@ -24,6 +24,7 @@ public:
     
     Image renderWaveform(int width, int height);
     void setSoundFile(String soundFile);
+    void normaliseAndAbsolute();
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
