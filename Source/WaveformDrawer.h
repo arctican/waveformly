@@ -45,6 +45,16 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
     
 	AudioSampleBuffer buffer;
+	
+	/**
+     * Splits the buffer into blocks
+     */
+	Array<float> splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks);
+	
+	/** 
+	 * Normalise the array
+	 */
+	void normalise(Array<float> &arrayToNormailse);
   
 };
 
