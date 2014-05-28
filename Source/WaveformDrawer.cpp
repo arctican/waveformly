@@ -24,23 +24,23 @@ WaveformDrawer::~WaveformDrawer()
 
 
 Image WaveformDrawer::renderWaveform(int width, int height)
-{
-	
-	// Create a blank Image
+{   
+    // Split buffer into blocks (1 per pixel)
+    Array<float> arrayBlock = splitIntoBlocks(buffer, width);
+    normalise(arrayBlock);
+    
+    // Create a blank Image
 	Image myImage (Image::RGB, width, height, true);
 	Graphics g (myImage);
 	g.setColour (Colours::yellow);
 	
-	// Get samples as floats
-	float* samples = buffer.getSampleData(0);
-	
+/*
+ * One sided
+ * 
+ * 
     // Create path to show waveform
     Path waveformPath;
 	waveformPath.startNewSubPath (0.0f, height);
-    
-    // Split buffer into blocks (1 per pixel)
-    Array<float> arrayBlock = splitIntoBlocks(buffer, width);
-    normalise(arrayBlock);
     
     // Loop through all pixels of width
     for (int i=0; i<width; i++)
@@ -55,9 +55,42 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 	waveformPath.lineTo (width, height);
 	waveformPath.closeSubPath();
 	
+	// Draw path to image
 	g.strokePath (waveformPath, PathStrokeType (1.0f));   
 	g.fillPath(waveformPath);
+ *
+ * 
+ */
+ 
+	// Create path to show waveform
+    Path waveformPathPlus;
+	waveformPathPlus.startNewSubPath (0.0f, height/2);
+    Path waveformPathMinus;
+	waveformPathMinus.startNewSubPath (0.0f, height/2); 
+	   
+    // Loop through all pixels of width
+    for (int i=0; i<width; i++)
+    {
+		// Draw point on Y axis
+		float value = arrayBlock[i];
+		float y = (value*(-height/2)) + (height/2);
+		waveformPathPlus.lineTo (i, y); 
+		float y2 = (value*(height/2)) + (height/2);
+		waveformPathMinus.lineTo (i, y2); 
+		
+	}
 	
+	// Close path back to start
+	waveformPathPlus.lineTo (width, height/2);
+	waveformPathPlus.closeSubPath();
+	waveformPathMinus.lineTo (width, height/2);
+	waveformPathMinus.closeSubPath();
+		
+	// Draw path to image
+	g.strokePath (waveformPathPlus, PathStrokeType (1.0f));   
+	g.fillPath(waveformPathPlus);
+	g.strokePath (waveformPathMinus, PathStrokeType (1.0f));   
+	g.fillPath(waveformPathMinus);	
 	return myImage;
 	
 }
