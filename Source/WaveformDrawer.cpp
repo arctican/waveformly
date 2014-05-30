@@ -26,7 +26,7 @@ WaveformDrawer::~WaveformDrawer()
 Image WaveformDrawer::renderWaveform(int width, int height)
 {   
     // Split buffer into blocks (1 per pixel)
-    Array<float> arrayBlock = splitIntoBlocks(buffer, width);
+    Array<float> arrayBlock = splitIntoBlocks(buffer, width, WaveformDrawer::MINUS);
     normalise(arrayBlock);
     
     // Create a blank Image
@@ -87,9 +87,12 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 	waveformPathMinus.closeSubPath();
 		
 	// Draw path to image
-	g.strokePath (waveformPathPlus, PathStrokeType (1.0f));   
+//	g.strokePath (waveformPathPlus, PathStrokeType (1.0f));   
+//	g.strokePath (waveformPathMinus, PathStrokeType (1.0f));   
+	
+	
+	g.setColour (Colours::blue);
 	g.fillPath(waveformPathPlus);
-	g.strokePath (waveformPathMinus, PathStrokeType (1.0f));   
 	g.fillPath(waveformPathMinus);	
 	return myImage;
 	
@@ -143,8 +146,12 @@ void WaveformDrawer::normaliseAndAbsolute()
 
 
 
-Array<float> WaveformDrawer::splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks)
+Array<float> WaveformDrawer::splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks, int state)
 {
+	
+	if (state == WaveformDrawer::MINUS)
+		DBG("Plus Bitch");
+	
 	// Get samples as floats
 	float* samples = buffer.getSampleData(0);
 	

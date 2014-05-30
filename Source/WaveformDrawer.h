@@ -19,6 +19,14 @@
 class WaveformDrawer
 {
 public:
+
+	enum 
+	{
+		PLUS = 0,
+		MINUS,
+		ANY
+	} State;
+	
     WaveformDrawer();
     ~WaveformDrawer();
     
@@ -49,7 +57,7 @@ private:
 	/**
      * Splits the buffer into blocks
      */
-	Array<float> splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks);
+	Array<float> splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks, int state);
 	
 	/** 
 	 * Normalise the array
