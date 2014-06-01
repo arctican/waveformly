@@ -16,6 +16,10 @@
 int main (int argc, char* argv[])
 {
 	
+	//DBG("Number of Args: " + String(argc));
+	
+	//for (int args = 0; args < argc; args++
+	
 	/**
 	 * Ideas for arguments
 	 * 
@@ -52,6 +56,8 @@ int main (int argc, char* argv[])
     // The class that does the drawing etc.
     WaveformDrawer wfDrawer;
     wfDrawer.setSoundFile("~/Desktop/ADAM/JUCE/MyApps/Streets.wav");
+    
+    wfDrawer.setColour("ff232323");
     //wfDrawer.normaliseAndAbsolute();
 	
 	// Take snapshot of WaveformDrawer and save to file

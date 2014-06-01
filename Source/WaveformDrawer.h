@@ -37,6 +37,13 @@ public:
      */    
     void setSoundFile(String soundFile);
     
+    /**
+     * Set the colour of the waveform
+     * 
+     * @ param 	colourToSet	A string of the colour in hex format with alpha (e.g. #FF232323);
+     */  
+    void setColour(String colourToSet);
+    
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
@@ -54,6 +61,10 @@ private:
 	 * Absolute the array
 	 */	
 	void absoluteArray(Array<float> &arrayToAbsolute);
+	
+	
+	
+	
 	
 	
 	

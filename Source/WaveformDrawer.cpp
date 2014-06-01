@@ -14,6 +14,9 @@
 //==============================================================================
 WaveformDrawer::WaveformDrawer()
 {
+	
+	mainColour = Colours::cyan;
+	DBG( mainColour.toString());
 }
 
 WaveformDrawer::~WaveformDrawer()
@@ -68,7 +71,7 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 //	g.strokePath (waveformPathMinus, PathStrokeType (1.0f));   
 	
 	
-	g.setColour (Colours::cyan);
+	g.setColour (mainColour);
 	g.fillPath(waveformPathPlus);
 	g.fillPath(waveformPathMinus);	
 	return myImage;
@@ -296,3 +299,18 @@ Array<float> WaveformDrawer::getAbsoluteBlocks(int numberOfBlocks)
 	return arrayBlock;		
 }
 //----------------------------------------------------------------------
+
+
+
+
+
+
+void WaveformDrawer::setColour(String colourToSet)
+{
+	
+	mainColour = Colour::fromString(colourToSet);
+	
+	
+	
+	
+}
