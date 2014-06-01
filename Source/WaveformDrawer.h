@@ -19,13 +19,6 @@
 class WaveformDrawer
 {
 public:
-
-	enum 
-	{
-		PLUS = 0,
-		MINUS,
-		ANY
-	} State;
 	
     WaveformDrawer();
     ~WaveformDrawer();
@@ -44,32 +37,40 @@ public:
      */    
     void setSoundFile(String soundFile);
     
-     /**
-     * Normalises and absolutes the values to make sure values are between 0-1
-     */
-    void normaliseAndAbsolute();
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
     
 	AudioSampleBuffer buffer;
+	Colour mainColour;
 	
-	/**
-     * Splits the buffer into blocks
-     */
-	Array<float> splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks, int state);
 	
 	/** 
 	 * Normalise the array
 	 */
-	void normalise(Array<float> &arrayToNormailse);
+	void normaliseArray(Array<float> &arrayToNormailse);
+	
+	/** 
+	 * Absolute the array
+	 */	
+	void absoluteArray(Array<float> &arrayToAbsolute);
 	
 	
-	void getBlocks(	Array<float> &positiveBlocks, 
-					Array<float> &negativeBlocks, 
-					Array<float> &absoluteBlocks,
-					int numberOfBlocks);
-  
+	
+	/**
+     * Returns a float array of the positive RMS values of each block
+     */				
+	Array<float> getPositiveBlocks(int numberOfBlocks);
+	
+	/**
+     * Returns a float array of the ngative RMS values of each block
+     */	
+	Array<float> getNegativeBlocks(int numberOfBlocks);
+	
+	/**
+     * Returns a float array of the absolute RMS values of each block
+     */	
+	Array<float> getAbsoluteBlocks(int numberOfBlocks);
 };
 
 

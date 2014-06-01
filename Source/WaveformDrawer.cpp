@@ -25,27 +25,19 @@ WaveformDrawer::~WaveformDrawer()
 
 Image WaveformDrawer::renderWaveform(int width, int height)
 {   
-    // Split buffer into blocks (1 per pixel)
-   // Array<float> arrayBlock = splitIntoBlocks(buffer, width, WaveformDrawer::MINUS);
-    //normalise(arrayBlock);
-    
     // Create a blank Image
 	Image myImage (Image::RGB, width, height, true);
 	Graphics g (myImage);
 	g.setColour (Colours::yellow);
 	
+	// Get array of positive values
+	Array<float> posBlocks = getPositiveBlocks(width);
 
+	// Get array of negative values
+	Array<float> negBlocks = getNegativeBlocks(width);
+	absoluteArray(negBlocks);
  
- 
-	Array<float> posBlocks;
-	Array<float> negBlocks;
-	Array<float> absBlocks;
-	
-	
-	getBlocks(posBlocks, negBlocks, absBlocks, width);
- 
- 
-	// Create path to show waveform
+	// Create paths to show waveform
     Path waveformPathPlus;
 	waveformPathPlus.startNewSubPath (0.0f, height/2);
     Path waveformPathMinus;
@@ -82,6 +74,11 @@ Image WaveformDrawer::renderWaveform(int width, int height)
 	return myImage;
 	
 }
+//----------------------------------------------------------------------
+
+
+
+
 
 
 void WaveformDrawer::setSoundFile(String soundFile)
@@ -102,78 +99,23 @@ void WaveformDrawer::setSoundFile(String soundFile)
 	buffer = readBuffer;
 	delete reader;	
 }
-
-
-void WaveformDrawer::normaliseAndAbsolute()
-{
-	// Normalise the buffer
-	float maximumLevel = buffer.getMagnitude ( 0, 0, buffer.getNumSamples());
-	
-	float gainFactor = 1 / maximumLevel;
-	buffer.applyGain	(0, 0, buffer.getNumSamples(), gainFactor); 
-	
-	// Get samples as floats
-	float* samples = buffer.getSampleData(0);
-	
-	// Absolute entire buffer
-	for (int i=0; i<buffer.getNumSamples(); i++)
-	{
-		samples[i] = fabs(samples[i]);
-		//samples[i] = samples[i] * samples[i] * samples[i];
-	}
-	
-	DBG("Max Level: " + String(maximumLevel));
-	DBG("Gain Factor: " + String(gainFactor));
-	
-}
+//----------------------------------------------------------------------
 
 
 
 
 
-Array<float> WaveformDrawer::splitIntoBlocks(AudioSampleBuffer buffer, int numberOfBlocks, int state)
-{
-	
-	// Get samples as floats
-	float* samples = buffer.getSampleData(0);
-	
-	// The data
-	Array<float> arrayBlock;
-    
-    // Find sample incrementer
-    int inc = buffer.getNumSamples()/numberOfBlocks;
-    
-    // Loop through all blocks
-    for (int i=0; i<numberOfBlocks; i++)
-    {
-		// Find sample of start of block
-		int sample = i*inc;
-		float value = 0.0;
-		
-		// Find peak of block for this pixel
-//		for (int x=0; x<inc; x++)
-//			if ( fabs(samples[x+sample]) > value)	value = fabs(samples[x+sample]);
-			
-			
-		// Find RMS value of this block
-		float meanAverage = 0.0;
-		for (int x=0; x<inc; x++)
-			meanAverage += (fabs(samples[x+sample]) * fabs(samples[x+sample]));	
-		meanAverage = meanAverage / inc;
-		value = sqrt (meanAverage);
-
-		// Add value to array
-		arrayBlock.add(value);
-		
-	}	
-	
-	// Return the array
-	return arrayBlock;
-}
 
 
 
-void WaveformDrawer::normalise(Array<float> &arrayToNormailse)
+
+
+
+
+
+
+
+void WaveformDrawer::normaliseArray(Array<float> &arrayToNormailse)
 {
 	// Find max value
 	float maxVal = 0.0;
@@ -190,6 +132,18 @@ void WaveformDrawer::normalise(Array<float> &arrayToNormailse)
 	}
 	
 }
+//----------------------------------------------------------------------
+
+
+
+void WaveformDrawer::absoluteArray(Array<float> &arrayToAbsolute)
+{
+	for (int i=0; i<arrayToAbsolute.size(); i++)
+	{
+		arrayToAbsolute.set(i, fabs(arrayToAbsolute[i]));
+	}
+}
+//----------------------------------------------------------------------
 
 
 
@@ -198,16 +152,13 @@ void WaveformDrawer::normalise(Array<float> &arrayToNormailse)
 
 
 
-void WaveformDrawer::getBlocks(	Array<float> &positiveBlocks, 
-								Array<float> &negativeBlocks, 
-								Array<float> &absoluteBlocks,
-								int numberOfBlocks)
+Array<float> WaveformDrawer::getPositiveBlocks(int numberOfBlocks)
 {
 	// Get samples as floats
 	float* samples = buffer.getSampleData(0);
 	
 	// The data
-	//Array<float> arrayBlock;
+	Array<float> arrayBlock;
     
     // Find sample incrementer
     int inc = buffer.getNumSamples()/numberOfBlocks;
@@ -219,34 +170,8 @@ void WaveformDrawer::getBlocks(	Array<float> &positiveBlocks,
 		int sample = i*inc;
 		float value = 0.0;
 		
-		// Find peak of block for this pixel
-//		for (int x=0; x<inc; x++)
-//			if ( fabs(samples[x+sample]) > value)	value = fabs(samples[x+sample]);
-			
-			
-			
-		/*
-		 * Absolute Blocks
-		 */
-		
-		// Find Absolute RMS value of this block
+		// Find Positive RMS value of this block
 		float meanAverage = 0.0;
-		for (int x=0; x<inc; x++)
-			meanAverage += (fabs(samples[x+sample]) * fabs(samples[x+sample]));	
-		meanAverage = meanAverage / inc;
-		value = sqrt (meanAverage);
-
-		// Add value to array
-		absoluteBlocks.add(value);
-		
-		
-		
-		/*
-		 * Positive Blocks
-		 */
-		
-		// Find Absolute RMS value of this block
-		meanAverage = 0.0;
 		int numberOfValues = 0;
 		for (int x=sample; x<inc+sample; x++)
 		{
@@ -262,21 +187,43 @@ void WaveformDrawer::getBlocks(	Array<float> &positiveBlocks,
 			value = sqrt (meanAverage);
 		}
 		
-
 		// Add value to array
-		positiveBlocks.add(value);
-		
-		
-		
-		
-		/*
-		 * Negative Blocks
-		 */
-		
-		// Find Absolute RMS value of this block
-		meanAverage = 0.0;
-		numberOfValues = 0;
+		arrayBlock.add(value);
+	}	
+	
+	// Return the array
+	return arrayBlock;	
+}
+//----------------------------------------------------------------------
 
+
+
+
+
+
+
+
+Array<float> WaveformDrawer::getNegativeBlocks(int numberOfBlocks)
+{
+	// Get samples as floats
+	float* samples = buffer.getSampleData(0);
+	
+	// The data
+	Array<float> arrayBlock;
+    
+    // Find sample incrementer
+    int inc = buffer.getNumSamples()/numberOfBlocks;
+    
+    // Loop through all blocks
+    for (int i=0; i<numberOfBlocks; i++)
+    {
+		// Find sample of start of block
+		int sample = i*inc;
+		float value = 0.0;
+		
+		// Find Negative RMS value of this block
+		float meanAverage = 0.0;
+		int numberOfValues = 0;
 		for (int x=sample; x<inc+sample; x++)
 		{
 			if (samples[x] < 0.0)
@@ -291,18 +238,61 @@ void WaveformDrawer::getBlocks(	Array<float> &positiveBlocks,
 			value = sqrt (meanAverage);
 		}
 		
-
 		// Add value to array
-		negativeBlocks.add(value);
-		
-		
-		
+		arrayBlock.add(value * -1.0);
 	}	
 	
 	// Return the array
-	//return arrayBlock;
-	
-	
-	
-	
+	return arrayBlock;	
 }
+//----------------------------------------------------------------------
+
+
+
+
+
+
+Array<float> WaveformDrawer::getAbsoluteBlocks(int numberOfBlocks)
+{
+	// Get samples as floats
+	float* samples = buffer.getSampleData(0);
+	
+	// The data
+	Array<float> arrayBlock;
+    
+    // Find sample incrementer
+    int inc = buffer.getNumSamples()/numberOfBlocks;
+    
+    // Loop through all blocks
+    for (int i=0; i<numberOfBlocks; i++)
+    {
+		// Find sample of start of block
+		int sample = i*inc;
+		float value = 0.0;
+		
+		// Find Absolute RMS value of this block
+		float meanAverage = 0.0;
+		int numberOfValues = 0;
+		
+		for (int x=sample; x<inc+sample; x++)
+		{
+			if (samples[x] != 0.0)
+			{
+				meanAverage += (fabs(samples[x+sample]) * fabs(samples[x+sample]));
+				numberOfValues++;
+			}	
+		}
+		if (numberOfValues > 0)
+		{
+			meanAverage = meanAverage / numberOfValues;
+			value = sqrt (meanAverage);
+		}
+		
+		// Add value to array
+		arrayBlock.add(value);
+	}	
+	
+	// Return the array
+	return arrayBlock;		
+}
+//----------------------------------------------------------------------
