@@ -52,7 +52,7 @@ int main (int argc, char* argv[])
     // The class that does the drawing etc.
     WaveformDrawer wfDrawer;
     wfDrawer.setSoundFile("~/Desktop/ADAM/JUCE/MyApps/Streets.wav");
-    wfDrawer.normaliseAndAbsolute();
+    //wfDrawer.normaliseAndAbsolute();
 	
 	// Take snapshot of WaveformDrawer and save to file
 	Image waveformImage = wfDrawer.renderWaveform(600,100);

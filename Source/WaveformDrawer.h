@@ -63,6 +63,12 @@ private:
 	 * Normalise the array
 	 */
 	void normalise(Array<float> &arrayToNormailse);
+	
+	
+	void getBlocks(	Array<float> &positiveBlocks, 
+					Array<float> &negativeBlocks, 
+					Array<float> &absoluteBlocks,
+					int numberOfBlocks);
   
 };
 
