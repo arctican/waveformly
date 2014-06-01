@@ -13,12 +13,61 @@
 
 
 //==============================================================================
-int main (int argc, char* argv[])
+
+void printHelp()
 {
+	printf("AudioWaveformImage by Arctican Audio\n\n"); 
+	printf("usage: AudioWaveformImage audiofile imagefile [args]\n"); 
 	
-	//DBG("Number of Args: " + String(argc));
+}
+
+
+int main (int argc, char* argv[])
+{	
+	// Check there's enough arguments
+	if (argc < 2)
+	{
+		printHelp();
+		return 1; 
+	}
 	
-	//for (int args = 0; args < argc; args++
+	// Get file paths, and setup default variables
+	String audioFilePath = argv[1];		//~/Desktop/Waveform.png
+	String imageFilePath = argv[2];		//~/Desktop/ADAM/JUCE/MyApps/Streets.wav
+	String mainColour = "FFFFFFFF";
+	String imageWidth = "600";
+	String imageHeight = "200";
+	
+	// Get arguments
+	if (argc > 2)
+	{
+		for (int args = 3; args < argc; args++)
+		{
+			String argument = argv[args];
+			
+			// Main colour argument
+			if (argument == "-c")
+			{
+				mainColour = argv[args+1];
+				args++;
+			}
+
+			// Image width
+			if (argument == "-w")
+			{
+				imageWidth = argv[args+1];
+				args++;
+			}				
+
+			// Image height
+			if (argument == "-h")
+			{
+				imageHeight = argv[args+1];
+				args++;
+			}	
+			
+		}
+	}
 	
 	/**
 	 * Ideas for arguments
@@ -49,19 +98,19 @@ int main (int argc, char* argv[])
 	ScopedJuceInitialiser_GUI sj;
 
 	// File to save
-	File waveformImageFile("~/Desktop/Waveform.png");
+	File waveformImageFile(imageFilePath);
 	if (waveformImageFile.existsAsFile())
 		waveformImageFile.deleteFile();
 	
     // The class that does the drawing etc.
     WaveformDrawer wfDrawer;
-    wfDrawer.setSoundFile("~/Desktop/ADAM/JUCE/MyApps/Streets.wav");
+    wfDrawer.setSoundFile(audioFilePath);
     
-    wfDrawer.setColour("ff232323");
+    wfDrawer.setColour(mainColour);
     //wfDrawer.normaliseAndAbsolute();
 	
 	// Take snapshot of WaveformDrawer and save to file
-	Image waveformImage = wfDrawer.renderWaveform(600,100);
+	Image waveformImage = wfDrawer.renderWaveform(imageWidth.getIntValue(),imageHeight.getIntValue());
 	FileOutputStream stream (waveformImageFile);
     PNGImageFormat pngWriter;
     pngWriter.writeImageToStream(waveformImage, stream);
