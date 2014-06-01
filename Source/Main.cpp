@@ -14,20 +14,87 @@
 
 //==============================================================================
 
-void printHelp()
+void printInfo()
 {
 	printf("AudioWaveformImage by Arctican Audio\n\n"); 
-	printf("usage: AudioWaveformImage audiofile imagefile [args]\n"); 
-	
+
 }
+
+void printUsage()
+{
+	printf("usage: AudioWaveformImage audiofile imagefile [options]\n"); 
+	printf("Use -help to get full help\n"); 	
+}
+
+void printHelp(String helpMode, String error)
+{
+	printInfo();
+	
+	if (helpMode != "ALL")
+		printUsage();
+		
+	// Print passed error message
+	if (error.isNotEmpty())
+		printf("%s\n", error.toRawUTF8());
+	
+	
+	// Main colour help
+	if (helpMode == "-c" || helpMode == "ALL")
+	{
+		printf("-c\t<string>\tThe main waveform colour in alpha hex format - AARRGGBB.\n"); 
+		printf("\t\t\t(e.g. FF00FF00 for opaque blue).\n");	
+	} 
+
+	// Image width help
+	if (helpMode == "-w" || helpMode == "ALL")
+		printf("-w\t<int>\t\tThe image width in pixels.\n");	
+		
+	// Image height help
+	if (helpMode == "-h" || helpMode == "ALL")
+		printf("-h\t<int>\t\tThe image height in pixels.\n");
+		
+		
+	// Print error codes
+	if (helpMode == "-errorcodes")
+	{
+		printf("0\t\tAll OK!.\n");
+		printf("1\t\tNot enough arguments.\n");
+		printf("10\t\tIncorrect colour argument.\n");
+		printf("11\t\tIncorrect width argument.\n");
+		printf("12\t\tIncorrect height argument.\n");		
+		
+	}	
+		
+}
+
+
+
+
+
+
 
 
 int main (int argc, char* argv[])
 {	
-	// Check there's enough arguments
-	if (argc < 2)
+	// Show help
+	String argument = argv[1];
+	if (argument == "-help")
 	{
-		printHelp();
+		printHelp("ALL", "");
+		return 0;
+	}	
+	if (argument == "-errorcodes")
+	{
+		printHelp(argument, "");
+		return 0;
+	}		
+	
+	
+	// Check there's enough arguments
+	if (argc < 3)
+	{
+		printInfo();
+		printUsage();
 		return 1; 
 	}
 	
@@ -49,6 +116,11 @@ int main (int argc, char* argv[])
 			if (argument == "-c")
 			{
 				mainColour = argv[args+1];
+				if (mainColour.length() != 8 || ! mainColour.containsOnly("0123456789abcdefABCDEF"))
+				{
+					printHelp(argument, "That's not a correct colour!");
+					return 10;
+				}
 				args++;
 			}
 
@@ -56,6 +128,11 @@ int main (int argc, char* argv[])
 			if (argument == "-w")
 			{
 				imageWidth = argv[args+1];
+				if (imageWidth.getIntValue() < 1)
+				{
+					printHelp(argument, "You need a width of more than 1 pixel!");
+					return 11;
+				}
 				args++;
 			}				
 
@@ -63,6 +140,11 @@ int main (int argc, char* argv[])
 			if (argument == "-h")
 			{
 				imageHeight = argv[args+1];
+				if (imageHeight.getIntValue() < 1)
+				{
+					printHelp(argument, "You need a height of more than 1 pixel!");
+					return 12;
+				}
 				args++;
 			}	
 			
@@ -107,7 +189,6 @@ int main (int argc, char* argv[])
     wfDrawer.setSoundFile(audioFilePath);
     
     wfDrawer.setColour(mainColour);
-    //wfDrawer.normaliseAndAbsolute();
 	
 	// Take snapshot of WaveformDrawer and save to file
 	Image waveformImage = wfDrawer.renderWaveform(imageWidth.getIntValue(),imageHeight.getIntValue());
@@ -115,7 +196,5 @@ int main (int argc, char* argv[])
     PNGImageFormat pngWriter;
     pngWriter.writeImageToStream(waveformImage, stream);
 
-
-	//delete wfDrawer;
     return 0;
 }
