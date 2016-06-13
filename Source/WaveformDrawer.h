@@ -39,26 +39,43 @@ public:
 
     void paint (Graphics& g) override
     {
-		Path waveformPath;
-		waveformPath.startNewSubPath(0, 0);
+		Path waveformPathPos;
+		Path waveformPathNeg;
+		
+		waveformPathPos.startNewSubPath(0, getHeight() / 2.0);
+		waveformPathNeg.startNewSubPath(0, getHeight() / 2.0);
+		
 		const float* samples = buffer.getReadPointer(0);
 		for (int xPixel = 0; xPixel < getWidth(); xPixel++)
 		{
 			int samplesPerPixel = buffer.getNumSamples() / getWidth();
-			double levelOfPixel = 0.0;
+			
+			double levelOfPixelPos = 0.0;
+			double levelOfPixelNeg = 0.0;
 			for (int sample = xPixel * samplesPerPixel; sample <  xPixel * samplesPerPixel + samplesPerPixel; sample++)
 			{
-				if (fabs(samples[sample]) > levelOfPixel)
-					levelOfPixel = fabs(samples[sample]);
+				if (samples[sample] > levelOfPixelPos)
+					levelOfPixelPos = samples[sample];
+				if (samples[sample] < levelOfPixelNeg)
+					levelOfPixelNeg = samples[sample];
 			}
-			waveformPath.lineTo(xPixel, levelOfPixel * getHeight());
+			
+			float midPoint = getHeight() / 2.0;
+			float yPixelPos = levelOfPixelPos * midPoint + midPoint;
+			float yPixelNeg = midPoint - (fabs(levelOfPixelNeg) * midPoint);
+			
+			waveformPathPos.lineTo(xPixel, yPixelPos);
+			waveformPathNeg.lineTo(xPixel, yPixelNeg);
 		}
-		waveformPath.lineTo(getWidth(), 0);
+		waveformPathPos.lineTo(getWidth(), getHeight() / 2.0);
+		waveformPathNeg.lineTo(getWidth(), getHeight() / 2.0);
 		
 		
+
 		g.fillAll (Colour(0xffF36C3D));
 		g.setColour(Colours::black);
-		g.fillPath(waveformPath);//, PathStrokeType(0.2));
+		g.fillPath(waveformPathPos);
+		g.fillPath(waveformPathNeg);
 		
 	
     }
