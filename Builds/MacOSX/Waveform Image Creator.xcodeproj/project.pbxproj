@@ -49,6 +49,7 @@
 		019BC814EB96213E748CB6A2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = codebook.c; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/codebook.c"; sourceTree = "SOURCE_ROOT"; };
 		01C9FE8F6745AA09002B0E6C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ZipFile.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_core/zip/juce_ZipFile.h"; sourceTree = "SOURCE_ROOT"; };
 		01D64D84A9271E3A5A062227 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_FileTreeComponent.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_gui_basics/filebrowser/juce_FileTreeComponent.h"; sourceTree = "SOURCE_ROOT"; };
+		024A9A377642F26810899721 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveformDrawer.h; path = ../../Source/WaveformDrawer.h; sourceTree = "SOURCE_ROOT"; };
 		02E82A1B11DDCC3833FCEB13 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_PropertySet.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_core/containers/juce_PropertySet.h"; sourceTree = "SOURCE_ROOT"; };
 		02E95DABBE04D7354C46367F = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_MidiMessageSequence.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_audio_basics/midi/juce_MidiMessageSequence.h"; sourceTree = "SOURCE_ROOT"; };
 		031075CD13F268C5D3670D02 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = window.c; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/window.c"; sourceTree = "SOURCE_ROOT"; };
@@ -1199,6 +1200,7 @@
 		FFB27371C3269EA398256F59 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pngset.c; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_graphics/image_formats/pnglib/pngset.c"; sourceTree = "SOURCE_ROOT"; };
 		FFB2A469E2B0AF8EB0BEDB5E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_DrawableShape.cpp"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_gui_basics/drawables/juce_DrawableShape.cpp"; sourceTree = "SOURCE_ROOT"; };
 		72D7D94565665E35EF3CE2D6 = {isa = PBXGroup; children = (
+					024A9A377642F26810899721,
 					A7F8F29E41C51DCE7A2826FB,
 					3CE944B45F3284C8B07AF32C,
 					82DCC13693E64060F3008E52, ); name = Source; sourceTree = "<group>"; };

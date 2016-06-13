@@ -6,6 +6,8 @@
               companyWebsite="http://arcticanaudio.com" companyEmail="adam@arcticanaudio.com">
   <MAINGROUP id="rsPfU3" name="Waveform Image Creator">
     <GROUP id="{B8DCD755-EDE4-91A0-B1AC-663498E27B25}" name="Source">
+      <FILE id="IC5iGN" name="WaveformDrawer.h" compile="0" resource="0"
+            file="Source/WaveformDrawer.h"/>
       <FILE id="N6DtNI" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="Yg8xn8" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
