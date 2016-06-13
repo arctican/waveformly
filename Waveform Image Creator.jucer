@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="e7SBlC" name="Waveform Image Creator" projectType="guiapp"
+              version="0.0.1" bundleIdentifier="com.arcticanaudio.WaveformImageCreator"
+              includeBinaryInAppConfig="1" jucerVersion="4.2.1" companyName="Arctican Audio"
+              companyWebsite="http://arcticanaudio.com" companyEmail="adam@arcticanaudio.com">
+  <MAINGROUP id="rsPfU3" name="Waveform Image Creator">
+    <GROUP id="{B8DCD755-EDE4-91A0-B1AC-663498E27B25}" name="Source">
+      <FILE id="N6DtNI" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="Yg8xn8" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="tJ7aOD" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Waveform Image Creator"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Waveform Image Creator"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
