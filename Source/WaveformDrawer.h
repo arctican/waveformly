@@ -16,21 +16,13 @@
 //==============================================================================
 /*
 */
-class WaveformDrawer    : public Component
+class WaveformDrawer    :	public Component,
+							public FileDragAndDropTarget
 {
 public:
     WaveformDrawer()
     {
-		File audioFile("~/Desktop/drumloop.mp3");
-		AudioFormatManager formatManager;
-		formatManager.registerBasicFormats();
-		ScopedPointer<AudioFormatReader> reader = formatManager.createReaderFor(audioFile);
-		if (reader != 0)
-		{
-			buffer = AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
-			reader->read (&buffer, 0, reader->lengthInSamples, 0, true, true);
-		}
-
+		loadFile("~/Desktop/drumloop.mp3");
 	}
 
     ~WaveformDrawer()
@@ -70,8 +62,6 @@ public:
 		waveformPathPos.lineTo(getWidth(), getHeight() / 2.0);
 		waveformPathNeg.lineTo(getWidth(), getHeight() / 2.0);
 		
-		
-
 		g.fillAll (Colour(0xffF36C3D));
 		g.setColour(Colours::black);
 		g.fillPath(waveformPathPos);
@@ -83,7 +73,47 @@ public:
     void resized() override
     {
 	}
-
+	
+	bool isInterestedInFileDrag(const juce::StringArray &files) override
+	{
+		return true;
+	}
+	
+	void filesDropped (const StringArray &files, int x, int y) override
+	{
+		if (files.size() > 1)
+		{
+			AlertWindow::showNativeDialogBox(	"Too many files!",
+												"You can only load one waveform at a time.",
+												false);
+		}
+		else
+		{
+			if (loadFile(files[0]))
+				repaint();
+			else
+				AlertWindow::showNativeDialogBox(	"Can't load file!",
+													"Are you trying to load uncompatible file.",
+													false);
+		}
+	}
+	
+	bool loadFile (String filePath)
+	{
+		File audioFile(filePath);
+		AudioFormatManager formatManager;
+		formatManager.registerBasicFormats();
+		ScopedPointer<AudioFormatReader> reader = formatManager.createReaderFor(audioFile);
+		if (reader != 0)
+		{
+			buffer = AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
+			reader->read (&buffer, 0, reader->lengthInSamples, 0, true, true);
+			return true;
+		}
+		else
+			return false;
+	}
+	
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
 	
