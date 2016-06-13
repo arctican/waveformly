@@ -31,11 +31,12 @@ public:
 
     void paint (Graphics& g) override
     {
+		int midPoint = getHeight() / 2;
 		Path waveformPathPos;
 		Path waveformPathNeg;
 		
-		waveformPathPos.startNewSubPath(0, getHeight() / 2.0);
-		waveformPathNeg.startNewSubPath(0, getHeight() / 2.0);
+		waveformPathPos.startNewSubPath(0, midPoint);
+		waveformPathNeg.startNewSubPath(0, midPoint);
 		
 		const float* samples = buffer.getReadPointer(0);
 		for (int xPixel = 0; xPixel < getWidth(); xPixel++)
@@ -52,15 +53,15 @@ public:
 					levelOfPixelNeg = samples[sample];
 			}
 			
-			float midPoint = getHeight() / 2.0;
+			
 			float yPixelPos = levelOfPixelPos * midPoint + midPoint;
 			float yPixelNeg = midPoint - (fabs(levelOfPixelNeg) * midPoint);
 			
 			waveformPathPos.lineTo(xPixel, yPixelPos);
 			waveformPathNeg.lineTo(xPixel, yPixelNeg);
 		}
-		waveformPathPos.lineTo(getWidth(), getHeight() / 2.0);
-		waveformPathNeg.lineTo(getWidth(), getHeight() / 2.0);
+		waveformPathPos.lineTo(getWidth(), midPoint);
+		waveformPathNeg.lineTo(getWidth(), midPoint);
 		
 		g.fillAll (Colour(0xffF36C3D));
 		g.setColour(Colours::black);
