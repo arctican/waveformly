@@ -22,6 +22,7 @@ class WaveformDrawer    :	public Component,
 public:
     WaveformDrawer()
     {
+		isDragAndDropping = false;
 		loadFile("~/Desktop/drumloop.mp3");
 	}
 
@@ -68,6 +69,9 @@ public:
 		g.fillPath(waveformPathPos);
 		g.fillPath(waveformPathNeg);
 		
+		if (isDragAndDropping)
+			g.fillAll(Colour::fromFloatRGBA(255, 255, 255, 0.15));
+		
 	
     }
 
@@ -82,6 +86,8 @@ public:
 	
 	void filesDropped (const StringArray &files, int x, int y) override
 	{
+		isDragAndDropping = false;
+
 		if (files.size() > 1)
 		{
 			AlertWindow::showNativeDialogBox(	"Too many files!",
@@ -114,11 +120,23 @@ public:
 		else
 			return false;
 	}
+
+	void fileDragExit (const StringArray& files) override
+	{
+		isDragAndDropping = false;
+		repaint();
+	}
+	void fileDragEnter (const StringArray& files, int x, int y) override
+	{
+		isDragAndDropping = true;
+		repaint();
+	}
 	
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
 	
 	AudioSampleBuffer buffer;
+	bool isDragAndDropping;
 };
 
 
