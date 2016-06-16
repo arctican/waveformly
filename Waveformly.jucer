@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="e7SBlC" name="Waveform Image Creator" projectType="guiapp"
-              version="0.0.1" bundleIdentifier="com.arcticanaudio.WaveformImageCreator"
-              includeBinaryInAppConfig="1" jucerVersion="4.2.1" companyName="Arctican Audio"
-              companyWebsite="http://arcticanaudio.com" companyEmail="adam@arcticanaudio.com">
-  <MAINGROUP id="rsPfU3" name="Waveform Image Creator">
+<JUCERPROJECT id="e7SBlC" name="Waveformly" projectType="guiapp" version="0.0.1"
+              bundleIdentifier="com.arcticanaudio.waveformly" includeBinaryInAppConfig="1"
+              jucerVersion="4.2.1" companyName="Arctican Audio" companyWebsite="http://arcticanaudio.com"
+              companyEmail="adam@arcticanaudio.com">
+  <MAINGROUP id="rsPfU3" name="Waveformly">
     <GROUP id="{B8DCD755-EDE4-91A0-B1AC-663498E27B25}" name="Source">
       <FILE id="IC5iGN" name="WaveformDrawer.h" compile="0" resource="0"
             file="Source/WaveformDrawer.h"/>
@@ -17,8 +17,8 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Waveform Image Creator"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Waveform Image Creator"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Waveformly"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Waveformly"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../../../Volumes/Shared/dev/SDKs/JUCE/modules"/>

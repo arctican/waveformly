@@ -13,11 +13,11 @@
 
 
 //==============================================================================
-class WaveformImageCreatorApplication  : public JUCEApplication
+class WaveformlyApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
-    WaveformImageCreatorApplication() {}
+    WaveformlyApplication() {}
 
     const String getApplicationName() override       { return ProjectInfo::projectName; }
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
@@ -98,4 +98,4 @@ private:
 
 //==============================================================================
 // This macro generates the main() routine that launches the app.
-START_JUCE_APPLICATION (WaveformImageCreatorApplication)
+START_JUCE_APPLICATION (WaveformlyApplication)

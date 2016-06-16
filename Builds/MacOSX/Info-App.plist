@@ -10,9 +10,9 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>Waveform Image Creator</string>
+    <string>Waveformly</string>
     <key>CFBundleDisplayName</key>
-    <string>Waveform Image Creator</string>
+    <string>Waveformly</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

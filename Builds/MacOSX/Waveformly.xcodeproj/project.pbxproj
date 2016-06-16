@@ -124,7 +124,7 @@
 		113B3FCF87BE207826DFA332 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_linux_Messaging.cpp"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_events/native/juce_linux_Messaging.cpp"; sourceTree = "SOURCE_ROOT"; };
 		11572AFCF7A0CF83086CBB14 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_NSViewComponent.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_gui_extra/embedding/juce_NSViewComponent.h"; sourceTree = "SOURCE_ROOT"; };
 		11AB07337DBC7470338D332B = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_FillType.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_graphics/colour/juce_FillType.h"; sourceTree = "SOURCE_ROOT"; };
-		11AD6FFE71510D5A954862EE = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Waveform Image Creator.app"; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		11AD6FFE71510D5A954862EE = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waveformly.app; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		11B02DBAD682381D707BCA8B = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_ToolbarButton.cpp"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_gui_basics/buttons/juce_ToolbarButton.cpp"; sourceTree = "SOURCE_ROOT"; };
 		125AFD59083014A86C38A180 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ColourSelector.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_gui_extra/misc/juce_ColourSelector.h"; sourceTree = "SOURCE_ROOT"; };
 		128A7AA1DE804C82C8C717D7 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_SortedSet.h"; path = "../../../../../../Volumes/Shared/dev/SDKs/JUCE/modules/juce_core/containers/juce_SortedSet.h"; sourceTree = "SOURCE_ROOT"; };
@@ -1205,7 +1205,7 @@
 					3CE944B45F3284C8B07AF32C,
 					82DCC13693E64060F3008E52, ); name = Source; sourceTree = "<group>"; };
 		6CD1DA7529B17358F9666E6F = {isa = PBXGroup; children = (
-					72D7D94565665E35EF3CE2D6, ); name = "Waveform Image Creator"; sourceTree = "<group>"; };
+					72D7D94565665E35EF3CE2D6, ); name = Waveformly; sourceTree = "<group>"; };
 		400F8F0A47E63802A235EB62 = {isa = PBXGroup; children = (
 					86CC0735BD7B077300E77A88,
 					9C0E07A0120380EC9CEE383E,
@@ -2635,7 +2635,7 @@
 				INFOPLIST_FILE = Info-App.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arcticanaudio.WaveformImageCreator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arcticanaudio.waveformly;
 				SDKROOT_ppc = macosx10.5; }; name = Debug; };
 		695EDE6DAC71C4C5AED7B9E4 = {isa = XCBuildConfiguration; buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -2657,7 +2657,7 @@
 				INFOPLIST_FILE = Info-App.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arcticanaudio.WaveformImageCreator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arcticanaudio.waveformly;
 				SDKROOT_ppc = macosx10.5; }; name = Release; };
 		274362787A0DAFC374B4E023 = {isa = XCBuildConfiguration; buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2673,7 +2673,7 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Waveform Image Creator";
+				PRODUCT_NAME = "Waveformly";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Debug; };
 		E6516E6CCDB371D0B3617DEC = {isa = XCBuildConfiguration; buildSettings = {
@@ -2688,7 +2688,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "Waveform Image Creator";
+				PRODUCT_NAME = "Waveformly";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Release; };
 		1C317EDF52429A31C06A8865 = {isa = PBXTargetDependency; target = ABA1C1FE8DAC4B77814086BA; };
@@ -2733,7 +2733,7 @@
 		ABA1C1FE8DAC4B77814086BA = {isa = PBXNativeTarget; buildConfigurationList = 239931E488CBF7371017D36D; buildPhases = (
 					DBC6DA79FF5EF8EE199C0F97,
 					F3CF5A78AFF984DA270627C0,
-					488EE49D9FA72605B16F48A6, ); buildRules = ( ); dependencies = (  ); name = "Waveform Image Creator (App)"; productName = "Waveform Image Creator"; productReference = 11AD6FFE71510D5A954862EE; productType = "com.apple.product-type.application"; };
+					488EE49D9FA72605B16F48A6, ); buildRules = ( ); dependencies = (  ); name = "Waveformly (App)"; productName = Waveformly; productReference = 11AD6FFE71510D5A954862EE; productType = "com.apple.product-type.application"; };
 		4E9C061A09F57C7CEA4B636C = {isa = PBXProject; buildConfigurationList = 577051FB4586829706055FC0; attributes = { LastUpgradeCheck = 0440; TargetAttributes = { ABA1C1FE8DAC4B77814086BA = { SystemCapabilities = {com.apple.InAppPurchase = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = 6F1F8C141AA8858838C75D25; projectDirPath = ""; projectRoot = ""; targets = (ABA1C1FE8DAC4B77814086BA); };
 	};
 	rootObject = 4E9C061A09F57C7CEA4B636C;
