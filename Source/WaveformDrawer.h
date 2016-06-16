@@ -23,7 +23,8 @@ public:
     WaveformDrawer()
     {
 		isDragAndDropping = false;
-		loadFile("~/Desktop/drumloop.mp3");
+		//loadFile("~/Desktop/drumloop.mp3");
+		fileIsLoaded = false;
 	}
 
     ~WaveformDrawer()
@@ -32,13 +33,32 @@ public:
 
     void paint (Graphics& g) override
     {
+		g.fillAll (Colour(0xffF36C3D));
+		g.setColour(Colours::black);
+		if (fileIsLoaded)
+		{
+			g.fillPath(createWaveformPath());
+		}
+		else
+		{
+			Rectangle<int> rectangle(40, getHeight() / 2 - 20, getWidth() - 80, 40);
+			g.drawRect(rectangle);
+			g.drawFittedText("Drag and drop an audio file here", rectangle, Justification::centred, 1);
+		}
+		
+		
+		if (isDragAndDropping)
+			g.fillAll(Colour::fromFloatRGBA(255, 255, 255, 0.15));
+		
+	
+    }
+	
+	
+	Path createWaveformPath()
+	{
+		// Calculate the pos/neg peak for all pixels
 		int midPoint = getHeight() / 2;
-		Path waveformPathPos;
-		Path waveformPathNeg;
-		
-		waveformPathPos.startNewSubPath(0, midPoint);
-		waveformPathNeg.startNewSubPath(0, midPoint);
-		
+		Array< Point<float> > positions;
 		const float* samples = buffer.getReadPointer(0);
 		for (int xPixel = 0; xPixel < getWidth(); xPixel++)
 		{
@@ -54,28 +74,29 @@ public:
 					levelOfPixelNeg = samples[sample];
 			}
 			
+			float yPixelNeg = fabs(levelOfPixelNeg) * midPoint + midPoint;
+			float yPixelPos = midPoint - (levelOfPixelPos * midPoint);
 			
-			float yPixelPos = levelOfPixelPos * midPoint + midPoint;
-			float yPixelNeg = midPoint - (fabs(levelOfPixelNeg) * midPoint);
-			
-			waveformPathPos.lineTo(xPixel, yPixelPos);
-			waveformPathNeg.lineTo(xPixel, yPixelNeg);
+			positions.add(Point<float>(yPixelPos, yPixelNeg));
 		}
-		waveformPathPos.lineTo(getWidth(), midPoint);
-		waveformPathNeg.lineTo(getWidth(), midPoint);
 		
-		g.fillAll (Colour(0xffF36C3D));
-		g.setColour(Colours::black);
-		g.fillPath(waveformPathPos);
-		g.fillPath(waveformPathNeg);
 		
-		if (isDragAndDropping)
-			g.fillAll(Colour::fromFloatRGBA(255, 255, 255, 0.15));
+		// Create the actual Path
+		Path waveformPath;
+		waveformPath.startNewSubPath(0, midPoint);
 		
-	
-    }
+		for (int xIt=0; xIt<getWidth(); xIt++)
+			waveformPath.lineTo(xIt, positions[xIt].x);
+		for (int xIt=getWidth(); xIt>0; xIt--)
+			waveformPath.lineTo(xIt, positions[xIt].y);
 
-    void resized() override
+		waveformPath.closeSubPath();
+		
+		return waveformPath;
+		
+	}
+	
+	void resized() override
     {
 	}
 	
@@ -100,7 +121,7 @@ public:
 				repaint();
 			else
 				AlertWindow::showNativeDialogBox(	"Can't load file!",
-													"Are you trying to load uncompatible file.",
+													"You are trying to load an incompatible file.",
 													false);
 		}
 	}
@@ -115,10 +136,14 @@ public:
 		{
 			buffer = AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
 			reader->read (&buffer, 0, reader->lengthInSamples, 0, true, true);
+			fileIsLoaded = true;
 			return true;
 		}
 		else
+		{
 			return false;
+		}
+		
 	}
 
 	void fileDragExit (const StringArray& files) override
@@ -137,6 +162,7 @@ private:
 	
 	AudioSampleBuffer buffer;
 	bool isDragAndDropping;
+	bool fileIsLoaded;
 };
 
 
