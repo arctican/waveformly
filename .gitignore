@@ -1,3 +1,4 @@
 Builds/MacOSX/build
 Builds/MacOSX/Waveformly.xcodeproj/xcuserdata
-Builds/MacOSX/Waveformly.xcodeproj/project.xcworkspace
+Builds/MacOSX/Waveformly.xcodeproj/project.xcworkspace/xcuserdata
+*.xcuserstate
