@@ -137,6 +137,7 @@ public:
 			buffer = AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
 			reader->read (&buffer, 0, reader->lengthInSamples, 0, true, true);
 			fileIsLoaded = true;
+			repaint();
 			return true;
 		}
 		else
