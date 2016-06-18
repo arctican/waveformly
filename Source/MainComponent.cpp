@@ -12,15 +12,17 @@
 //==============================================================================
 MainContentComponent::MainContentComponent()
 {
+	
+	LookAndFeel::setDefaultLookAndFeel(&landf);
 	addAndMakeVisible(drawer);
     setSize (600, 400);
 	
 	addAndMakeVisible(saveButton);
-	saveButton.setButtonText("S");
+	saveButton.setButtonText(CharPointer_UTF8("\xEF\x83\x87"));
 	saveButton.addListener(this);
 	
 	addAndMakeVisible(openButton);
-	openButton.setButtonText("O");
+	openButton.setButtonText(CharPointer_UTF8("\uf15b"));//xf15b  013
 	openButton.addListener(this);
 	
 	

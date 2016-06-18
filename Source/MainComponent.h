@@ -11,6 +11,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "WaveformDrawer.h"
+#include "FontAwesomeButton.h"
+#include "WaveformlyLookAndFeel.h"
 
 
 //==============================================================================
@@ -38,11 +40,13 @@ private:
 	
 	WaveformDrawer drawer;
 	
-	TextButton saveButton;
-	TextButton openButton;
+	FontAwesomeButton saveButton;
+	FontAwesomeButton openButton;
 	
 	Slider hueSlider;
 	Label hueLabel;
+	
+	WaveformlyLookAndFeel landf;
 	
 };
 
