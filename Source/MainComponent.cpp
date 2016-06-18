@@ -16,11 +16,11 @@ MainContentComponent::MainContentComponent()
     setSize (600, 400);
 	
 	addAndMakeVisible(saveButton);
-	saveButton.setButtonText("Save");
+	saveButton.setButtonText("S");
 	saveButton.addListener(this);
 	
 	addAndMakeVisible(openButton);
-	openButton.setButtonText("Open");
+	openButton.setButtonText("O");
 	openButton.addListener(this);
 	
 	
@@ -32,6 +32,7 @@ MainContentComponent::MainContentComponent()
 	hueSlider.addListener(this);
 	
 	addAndMakeVisible(hueLabel);
+	hueLabel.setColour(Label::ColourIds::textColourId, Colours::white);
 	hueLabel.setText("Background Hue", dontSendNotification);
 	hueLabel.setJustificationType(Justification::centred);
 }
@@ -45,17 +46,19 @@ MainContentComponent::~MainContentComponent()
 
 void MainContentComponent::paint (Graphics& g)
 {
+	g.fillAll(Colours::black);
 }
 
 
 
 void MainContentComponent::resized()
 {
-	drawer.setBounds(0, 0, getWidth(), getHeight());
-	openButton.setBounds(0, 0, 50, 50);
-	saveButton.setBounds(50, 0, 50, 50);
-	hueSlider.setBounds(100, 25, 200, 25);
-	hueLabel.setBounds(100, 0, 200, 25);
+	int toolbarHeight = 30;
+	drawer.setBounds(0, toolbarHeight, getWidth(), getHeight() - toolbarHeight);
+	openButton.setBounds(0, 0, toolbarHeight, toolbarHeight);
+	saveButton.setBounds(30, 0, toolbarHeight, toolbarHeight);
+	hueSlider.setBounds(60, toolbarHeight / 2, 200, toolbarHeight / 2.0);
+	hueLabel.setBounds(60, 0, 200, toolbarHeight / 2.0);
 }
 
 
