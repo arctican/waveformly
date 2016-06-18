@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="e7SBlC" name="Waveformly" projectType="guiapp" version="0.0.1"
+<JUCERPROJECT id="e7SBlC" name="Waveformly" projectType="guiapp" version="0.0.3"
               bundleIdentifier="com.arcticanaudio.waveformly" includeBinaryInAppConfig="1"
               jucerVersion="4.2.1" companyName="Arctican Audio" companyWebsite="http://arcticanaudio.com"
               companyEmail="adam@arcticanaudio.com">
