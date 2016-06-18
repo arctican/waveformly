@@ -19,7 +19,8 @@
     your controls and content.
 */
 class MainContentComponent   :	public Component,
-								public Button::Listener
+								public Button::Listener,
+								public Slider::Listener
 {
 public:
     //==============================================================================
@@ -29,6 +30,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 	void buttonClicked(Button*) override;
+	void sliderValueChanged(Slider*) override;
 
 private:
     //==============================================================================
@@ -38,6 +40,9 @@ private:
 	
 	TextButton saveButton;
 	TextButton openButton;
+	
+	Slider hueSlider;
+	Label hueLabel;
 	
 };
 

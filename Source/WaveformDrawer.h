@@ -23,8 +23,8 @@ public:
     WaveformDrawer()
     {
 		isDragAndDropping = false;
-		//loadFile("~/Desktop/drumloop.mp3");
 		fileIsLoaded = false;
+		setHue(0.0430403);
 	}
 
     ~WaveformDrawer()
@@ -33,7 +33,7 @@ public:
 
     void paint (Graphics& g) override
     {
-		g.fillAll (Colour(0xffF36C3D));
+		g.fillAll (backgroundColour);
 		g.setColour(Colours::black);
 		if (fileIsLoaded)
 		{
@@ -159,12 +159,19 @@ public:
 		repaint();
 	}
 	
+	void setHue(float newHue)
+	{
+		backgroundColour = Colour::fromHSV(newHue, 0.748971, 0.952941, 1);
+	}
+	
 private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDrawer)
 	
 	AudioSampleBuffer buffer;
 	bool isDragAndDropping;
 	bool fileIsLoaded;
+	
+	Colour backgroundColour;
 };
 
 
