@@ -6,6 +6,7 @@
               companyEmail="adam@arcticanaudio.com">
   <MAINGROUP id="rsPfU3" name="Waveformly">
     <GROUP id="{4D69E17D-D773-F4F4-9E00-ECBD1053F487}" name="Assets">
+      <FILE id="jF0gPK" name="icon.png" compile="0" resource="1" file="Assets/icon.png"/>
       <FILE id="nJMPSp" name="fontawesome-webfont.ttf" compile="0" resource="1"
             file="Assets/fontawesome-webfont.ttf"/>
       <FILE id="dpem7d" name="Lato-Light.ttf" compile="0" resource="1" file="Assets/Lato-Light.ttf"/>
@@ -28,7 +29,7 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" bigIcon="jF0gPK">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Waveformly"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Waveformly"/>

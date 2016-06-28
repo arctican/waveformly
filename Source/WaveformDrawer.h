@@ -97,7 +97,7 @@ public:
 	}
 	
 	void resized() override
-    {
+	{
 	}
 	
 	bool isInterestedInFileDrag(const juce::StringArray &files) override

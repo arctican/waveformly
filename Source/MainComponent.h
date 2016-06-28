@@ -48,6 +48,8 @@ private:
 	
 	WaveformlyLookAndFeel landf;
 	
+	const int toolbarHeight = 40;
+	
 };
 
 
